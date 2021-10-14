@@ -177,11 +177,28 @@
 
             loader.style.display = "";
             window.setTimeout(function(){
+                window.sessionStorage.sync = true
                 document.getElementById('status').innerHTML = "Up to date";
                 document.getElementById('status').className ="text-success";
                 document.querySelector('#loader').style.display = "none";
             },3000)
         }
+
+        function checkIfSync(){
+            console.log("Sync")
+            console.log(window.sessionStorage.sync)
+            if(window.sessionStorage.sync=== undefined){
+                console.log("notSync")
+            }else{
+                if(window.sessionStorage.sync){
+                    document.getElementById('status').innerHTML = "Up to date";
+                    document.getElementById('status').className ="text-success";
+                    document.querySelector('#loader').style.display = "none";
+                }
+
+            }
+        }
+        checkIfSync()
     </script>
 
 
