@@ -14,6 +14,11 @@
 </head>
 
 <body>
+    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
+        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
+        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+        <div id='loader' class='loader' style='display:none'></div>
+    </nav>
     <div class="p-5 bg-light text-center">
         <h1 class="display-3">Crew Managment</h1>
         <p class="lead">Manage Crew of Ship ID : 111</p>
@@ -113,6 +118,35 @@
     }
     
     document.getElementById('crewMembersDiv').innerHTML = newHTML
+
+    function sync (){
+            loader = document.querySelector('#loader');
+            console.log(status);
+
+            loader.style.display = "";
+            window.setTimeout(function(){
+                window.sessionStorage.sync = true
+                document.getElementById('status').innerHTML = "Up to date";
+                document.getElementById('status').className ="text-success";
+                document.querySelector('#loader').style.display = "none";
+            },3000)
+        }
+
+        function checkIfSync(){
+            console.log("Sync")
+            console.log(window.sessionStorage.sync)
+            if(window.sessionStorage.sync=== undefined){
+                console.log("notSync")
+            }else{
+                if(window.sessionStorage.sync){
+                    document.getElementById('status').innerHTML = "Up to date";
+                    document.getElementById('status').className ="text-success";
+                    document.querySelector('#loader').style.display = "none";
+                }
+
+            }
+        }
+        checkIfSync()
 
 </script>
 </html>
