@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Create Form</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -37,7 +37,7 @@
 
 </head>
 
-<body onload='getVariables()'>
+<body>
     <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
         <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
         <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
@@ -45,59 +45,28 @@
     </nav>
 
     <div class="p-1 bg-light text-center">
-        <h1 class="display-3">Hey <span id='name'></span></h1>
-        <p class="lead">Here are the forms you need to do for today</p>
+        <h1 class="display-3">OI</h1>
+        <p class="lead">this page for u to make form</p>
+        <p class="lead">Just take a nicenice pic of the form we covert for u</p>
         <hr class="my-2">
     </div>
 
     <div class='container d-flex mb-5'>
         <div class='m-auto'>
-            <h3 class='display-6 text-center text-decoration-underline'>My To-Do List</h3>
+            <h3 class='display-6 text-center text-decoration-underline'>Create New Form</h3>
             <!-- Box -->
+            
             <div class='border border-dark rounded h-50 w-100 align-items-stretch px-2 py-3 mt-3'>
-                <h6 class='text-decoration-underline'>Daily Ship Attendance</h6>
-                <h6>Form date: <span class='date'></span></h6>
-                <div class='row mt-4'>
-                    <div class='col-3'>
-                        <img src='../css/images/placeholder.jpg' height="150" width="150">
-                    </div>
-                    <div class='col-9'>
-                        Please fill up your daily attendance and status for the day. Do note that you have to fill up
-                        this form 3 times a day in order to clock your status and task list for the day.
-                        <br>
-                        <br>
-                        If you require any information, do seek our your manager or send a request to ship master for
-                        help by clicking the button below.
-                        <div class='text-center'>
-                            <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">Open Form</a>
-                            <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">Request for help</a>
-                        </div>
-                    </div>
+                <div class="input-group">
+                    <button type="button" class="btn btn-secondary rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
+                    <input type="file" class="button button-secondary m-2" style="display:none" id="file"
+                      accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadImageDisplay(event)">
                 </div>
-            </div>
-            <!-- Box -->
-            <!-- Box -->
-            <div class='border border-dark rounded h-50 w-100 align-items-stretch px-2 py-3 mt-3'>
-                <h6 class='text-decoration-underline'>Pre-Departure Checklist</h6>
-                <h6>Form date: <span class='date'></span></h6>
-                <div class='row mt-4'>
-                    <div class='col-3'>
-                        <img src='../css/images/placeholder.jpg' height="150" width="150">
-                    </div>
-                    <div class='col-9'>
-                        Please fill up this form ASAP before ship departure. You will be departing on ship ID <span
-                            id='shipId'></span> and you are required to have the followings items before departure. Fill
-                        up the checklist and submit the form so that your ship manager/captain will be able to see your
-                        status. If you do not fill up the form before the trip, <span class='fw-bold'>you will not be allowed on the ship</span>.
-                        <br>
-                        <br>
-                        If the ship ID indicated is incorrectly, do feel free to get in touch with your company's administrative or send a help request below.
-                        <div class='text-center'>
-                            <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">Open Form</a>
-                            <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">Request for help</a>
-                        </div>
-                    </div>
-                </div>
+                <div class='ml-3'>
+                    <img id="output" class="card-img-top rounded2 shadow" style='max-height:700px; object-fit:cover'> 
+                    <button class='btn btn-primary mt-3' style='display:none' id='processImage'> Process Form Image</button> 
+                 </div>
+
             </div>
             <!-- Box -->
         </div>
@@ -140,7 +109,7 @@
             console.log(shipId);
 
 
-            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
+            // document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
             document.getElementById('shipId').innerHTML = shipId;
         }
 
@@ -171,6 +140,13 @@
             }
         }
         checkIfSync()
+
+        function loadImageDisplay(event){
+        var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        document.getElementById('uploadImageLabel').innerText = 'Change image'
+        document.getElementById('processImage').style.display='block'
+            }   
     </script>
 
 
