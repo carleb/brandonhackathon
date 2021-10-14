@@ -44,14 +44,61 @@
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
 
-    <div class="p-5 bg-light text-center">
-            <h1 class="display-3">Hey <span id='name'></span></h1>
-            <p class="lead"></p>
-            <hr class="my-2">
-            <p>More info</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
-            </p>
+    <div class="p-1 bg-light text-center">
+        <h1 class="display-3">Hey <span id='name'></span></h1>
+        <p class="lead">Here are the forms you need to do for today</p>
+        <hr class="my-2">
+    </div>
+
+    <div class='container d-flex mb-5'>
+        <div class='m-auto'>
+            <h3 class='display-6 text-center text-decoration-underline'>My To-Do List</h3>
+            <!-- Box -->
+            <div class='border border-dark rounded h-50 w-100 align-items-stretch px-2 py-3 mt-3'>
+                <h6 class='text-decoration-underline'>Daily Ship Attendance</h6>
+                <h6>Form date: <span class='date'></span></h6>
+                <div class='row mt-4'>
+                    <div class='col-3'>
+                        <img src='../css/images/placeholder.jpg' height="150" width="150">
+                    </div>
+                    <div class='col-9'>
+                        Please fill up your daily attendance and status for the day. Do note that you have to fill up
+                        this form 3 times a day in order to clock your status and task list for the day.
+                        <br>
+                        <br>
+                        If you require any information, do seek our your manager or send a request to ship master for
+                        help by clicking the button below.
+                        <div class='text-center'>
+                            <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">Send help request</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Box -->
+            <!-- Box -->
+            <div class='border border-dark rounded h-50 w-100 align-items-stretch px-2 py-3 mt-3'>
+                <h6 class='text-decoration-underline'>Pre-Departure Checklist</h6>
+                <h6>Form date: <span class='date'></span></h6>
+                <div class='row mt-4'>
+                    <div class='col-3'>
+                        <img src='../css/images/placeholder.jpg' height="150" width="150">
+                    </div>
+                    <div class='col-9'>
+                        Please fill up this form ASAP before ship departure. You will be departing on ship ID <span
+                            id='shipId'></span> and you are required to have the followings items before departure. Fill
+                        up the checklist and submit the form so that your ship manager/captain will be able to see your
+                        status. If you do not fill up the form before the trip, <span class='fw-bold'>you will not be allowed on the ship</span>.
+                        <br>
+                        <br>
+                        If the ship ID indicated is incorrectly, do feel free to get in touch with your company's administrative or send a help request below.
+                        <div class='text-center'>
+                            <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">Send help request</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Box -->
+        </div>
     </div>
 
 
@@ -69,6 +116,15 @@
         var crewType = "";
         var crewName = "";
         var shipId = "";
+
+        var today = new Date();
+        var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+        dates = document.querySelectorAll(".date");
+        for (dt of dates) {
+            dt.innerHTML = date;
+        }
+
 
         function getVariables() {
             crewID = sessionStorage.getItem("crewID");
