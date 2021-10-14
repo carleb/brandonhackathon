@@ -33,7 +33,10 @@
             <div class='col-4 border border-primary fw-bold'>
                 Crew Type
             </div>
-            <div class='col-4 border border-primary fw-bold'>
+            <div class='col-2 border border-primary fw-bold'>
+                Crew ID
+            </div>
+            <div class='col-2 border border-primary fw-bold'>
                 
             </div>
         </div>
@@ -44,7 +47,10 @@
             <div class='col-4 border border-info'>
                 Ship Master
             </div>
-            <div class='col-4 border border-info'>
+            <div class='col-2 border border-info'>
+                111
+            </div>
+            <div class='col-2 border border-info'>
                 <a href='#'>edit</a>
             </div>
         </div>
@@ -55,7 +61,7 @@
 
 
     <nav class="nav fixed-bottom navbar-light bg-light justify-content-center ">
-        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="./home.html">Home</a>
         <a class="nav-link" href="#">Forms to do</a>
         <a class="nav-link" href="#">Send out forms</a>
         <a class="nav-link" href="#">Create form</a>
@@ -73,10 +79,40 @@
 </body>
 
 <script>
-    currentCrewMembers= myStorage.currentCrewMembers
 
     myStorage = window.sessionStorage;
+    currentCrewMembers = {
+        "001":["Caleb","Crew Member","password"],
+        "002":["Tom","Crew Member","password"],
+        "003":["Gabriel","Crew Member","password"]
+        // "999":["Caleb","Crew Member","password"]
+    }
 
+    console.log(window.sessionStorage)
+
+    newHTML = ""
+    for(crewID in currentCrewMembers){
+        data = currentCrewMembers[crewID]
+        // console.log(crewID)
+        // console.log(data)
+        crewHTML = `<div class='row'>
+                        <div class='col-4 border border-info'>
+                            `+data[0]+`
+                        </div>
+                        <div class='col-4 border border-info'>
+                            `+data[1]+`
+                        </div>
+                        <div class='col-2 border border-info'>
+                            `+crewID+`
+                        </div>
+                        <div class='col-2 border border-info'>
+                            <a href='./crewManagamentEdit.html?crewId=`+crewID+`'>edit</a>
+                        </div>
+                    </div>`
+        newHTML =newHTML + crewHTML
+    }
+    
+    document.getElementById('crewMembersDiv').innerHTML = newHTML
 
 </script>
 </html>
