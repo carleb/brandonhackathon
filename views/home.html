@@ -36,7 +36,7 @@
 
 </head>
 
-<body>
+<body onload="getVariables()">
     <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
         <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
         <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
@@ -44,9 +44,11 @@
     </nav>
     <div class="p-5 bg-light text-center">
         <h1 class="display-3">Welcome to WorldOfShip</h1>
-        <p class="lead">Welcome _________ ! Here, you can check your daily tasks available and see what forms you have
+        <p class="lead">Welcome <span id='name'></span> ! Here, you can check your daily tasks available and see what forms you have
             to submit
             for the day.</p>
+            <br>
+            <h6>Current Ship ID: <span id='shipId'></span></h6>
         <hr class="my-2">
     </div>
 
@@ -115,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class='row mt-5  d-flex align-items-center justify-content-center'>
+        <div id='shipmaster' style='display:none' class='row mt-5  d-flex align-items-center justify-content-center'>
             <div class='col-md-3'>
             </div>
             <div class="col-md-3">
@@ -145,13 +147,37 @@
     </nav>
 
     <script>
+        var crewID = "";
+        var crewType = "";
+        var crewName = "";
+        var shipId = "";
+
+        function getVariables(){
+            crewID = sessionStorage.getItem("crewID");
+            crewType = sessionStorage.getItem("crewType");
+            crewName = sessionStorage.getItem("crewName");
+            shipId = sessionStorage.getItem("shipID");
+
+            console.log(crewID);
+            console.log(crewType);
+            console.log(crewName);
+            console.log(shipId);
+
+            if (crewType == "Ship Master"){
+                document.getElementById('shipmaster').style.display = "";
+            }
+
+            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
+            document.getElementById('shipId').innerHTML = shipId;
+        }
+
         function sync (){
             loader = document.querySelector('#loader');
             console.log(status);
 
             loader.style.display = "";
             window.setTimeout(function(){
-                document.getElementById('status').innerHTML = "Web app is up to date";
+                document.getElementById('status').innerHTML = "Up to date";
                 document.getElementById('status').className ="text-success";
                 document.querySelector('#loader').style.display = "none";
             },3000)
