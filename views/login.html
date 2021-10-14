@@ -14,32 +14,75 @@
 </style>
 <body style='background-color:#FAFAEE'>
 
-    <div class='container'>
+    <div class='container mt-5'>
+        <div class='row mt-3' style='text-align: center;'>
+            <div>
+                <h1>World of Ship</h1>
+            </div>
+        </div>
         <div class='row mt-3'>
-            <div class='col-4 my-auto'>
+            <div class='col-sm-5'>
                 <img src='/images/picOfShip.jpg' width="100%">
             </div>
-            <div class='col-8'>
-                <form>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class='col-sm-2'>
+                <!-- <img src='/images/picOfShip.jpg' width="100%"> -->
+            </div>
+            <div class='col-sm-5 rounded '>
+                <div class="card bg-light mb-3" style="max-width: 30rem;">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">CrewID</label>
+                              <input type="email" class="form-control" id="inputCrewID" aria-describedby="emailHelp" placeholder="Enter Crew ID">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3" onclick='login()'>Login</button>
+                          </form>
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+                  </div>
             </div>
         </div>
 
     </div>
 </body>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+    function login(){
+        event.preventDefault()
+        console.log('test')
+
+        inputCrewID = document.getElementById('inputCrewID').value
+        inputPassword = document.getElementById('inputPassword').value
+
+        console.log(inputCrewID,inputPassword)
+        myStorage = window.sessionStorage;
+
+        if(inputCrewID == "111"){
+            if (inputPassword=="password"){
+                console.log("Ship Master login")
+                myStorage.crewID = inputCrewID
+                myStorage.crewType = "shipmaster"
+                window.location.href = "./home.html"; 
+            }
+        }
+
+
+        //else
+        if(inputCrewID == "222"){
+            if (inputPassword=="password"){
+                console.log("Crew Member login")
+                myStorage.crewID = inputCrewID
+                myStorage.crewType = "crewmember"
+                window.location.href = "./home.html"; 
+                
+            }
+        }
+    }
+</script>
 </html>
