@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Departure Form</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.0.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+
+</head>
+
+
+
+<body onload='getVariables()'>
+    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
+        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
+        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+        <div id='loader' class='loader' style='display:none'></div>
+    </nav>
+
+    <div class="p-1 bg-light text-center">
+        <h1 class="display-3">Pre-Departure Checklist | Form#001</h1>
+        <p class="lead">Depart From: Singapore | Ship ID: <span id='shipid'></span> | Username: <span
+                id='username'></span>| User ID: <span id='userID'></span></p>
+        <hr class="my-2">
+    </div>
+
+    <nav class="nav fixed-bottom navbar-light bg-light justify-content-center ">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="todo.html">Forms to do</a>
+        <a class="nav-link" href="sendForm.html">Send out forms</a>
+        <a class="nav-link" href="createNewForm.html">Create form</a>
+        <a class="nav-link" href="maintenance.html">Maintenance</a>
+    </nav>
+
+    <div class='container'>
+        <div class='row'>
+            <div class='col'>
+                <div class='my-2' style='text-align: center;'>
+                    <span class='fs-6 fw-light'>
+                        Disclaimer : This is just a demo to show real-time form checking capability to ensure that data
+                        keyed by the user is consistent
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+
+                <label class="form-label">Date : ( Format = DD/MM/YY )</label>
+                <div class="input-group mb-3">
+                    <input type="text" id='dateInput' class="form-control" placeholder="DD/MM/YY" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col'>
+                <label class="form-label">What is your name?</label>
+                <div class="input-group mb-3">
+                    <input type="text" onkeyup="checkNameInput()" id='nameInput' class="form-control"
+                        placeholder="Enter your name here in english" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+                <div style='text-align:center;'>
+                    <label class="form-label text-danger" style='display:none' id='nameInputWanring'>Please only type in
+                        english charaters, our database do not accept non-english charaters</label>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col'>
+                <label class="form-label">What is your height?</label>
+                <div class="input-group mb-3">
+                    <input type="text" onkeyup="checkHeightInput()" id='heightInput' class="form-control"
+                        placeholder="Enter your height in Meter" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div style='text-align:center;'>
+                    <label class="form-label text-danger" style='display:none' id='heightInputWarning'>Please double
+                        check your height. We require you to input your height in meters. Height must be in range 1m
+                        to 4m</label>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col'>
+                <label class="form-label">What is the cost of fuel per litre in Singapore Dollar? </label>
+                <div class="input-group mb-3">
+                    <input type="text" onkeyup="checkFuelInput()" id='fuelInput' class="form-control"
+                        placeholder="What is the cost of fuel?" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div style='text-align:center;'>
+                    <label class="form-label" style='display:none;color:rgb(240, 139, 45)' id='fuelInputWarning1'>Please double
+                    check your input.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col'>
+                <div id='buttton'>
+                    <button type="button" class="btn btn-primary" disabled>Submit</button>
+                </div>
+                <br>
+                <div class='mt-3' style='text-align: center;'>
+                    <span class='fs-6 fw-light' id='submitwarning'>
+                        If the submmited button is disabled. Ensure that you have filled up the form correctly
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var crewID = "";
+        var crewType = "";
+        var crewName = "";
+        var shipId = "";
+
+        function getVariables() {
+            crewID = sessionStorage.getItem("crewID");
+            crewType = sessionStorage.getItem("crewType");
+            crewName = sessionStorage.getItem("crewName");
+            shipId = sessionStorage.getItem("shipID");
+
+            console.log(crewID);
+            console.log(crewType);
+            console.log(crewName);
+            console.log(shipId);
+
+
+            // document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
+            document.getElementById('shipid').innerHTML = shipId;
+            document.getElementById('username').innerHTML = crewName;
+            document.getElementById('userID').innerHTML = crewID;
+        }
+
+        function sync() {
+            loader = document.querySelector('#loader');
+            console.log(status);
+
+            loader.style.display = "";
+            window.setTimeout(function () {
+                document.getElementById('status').innerHTML = "Up to date";
+                document.getElementById('status').className = "text-success";
+                document.querySelector('#loader').style.display = "none";
+            }, 3000)
+        }
+
+        function checkIfSync() {
+            console.log("Sync")
+            console.log(window.sessionStorage.sync)
+            if (window.sessionStorage.sync === undefined) {
+                console.log("notSync")
+            } else {
+                if (window.sessionStorage.sync) {
+                    document.getElementById('status').innerHTML = "Up to date";
+                    document.getElementById('status').className = "text-success";
+                    document.querySelector('#loader').style.display = "none";
+                }
+
+            }
+        }
+        checkIfSync()
+
+        today = new Date();
+        date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        document.getElementById("dateInput").value = date
+
+        // form functions
+
+        checker = {}
+
+        for(i=0;i<3;i++){
+            checker[i] = false
+        }
+
+        // Whatever valid characters you want here
+        var ENGLISH = {};
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("").forEach(function (ch) {
+            ENGLISH[ch] = true;
+        });
+
+        function stringIsEnglish(str) {
+            var index;
+
+            for (index = str.length - 1; index >= 0; --index) {
+                if (!ENGLISH[str.substring(index, index + 1)]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function checkNameInput() {
+            value = document.getElementById('nameInput').value
+            // console.log(value)
+            if (stringIsEnglish(value)) {
+                document.getElementById('nameInputWanring').style.display = 'none'
+                checker[0] = true
+            } else {
+                document.getElementById('nameInputWanring').style.display = 'block'
+                checker[0] = false
+
+            }
+            checkChecker()
+        }
+
+        function checkHeightInput() {
+            value = document.getElementById('heightInput').value
+            console.log(value)
+            if (value < 4) {
+                if (value >= 1) {
+                    document.getElementById('heightInputWarning').style.display = 'none'
+                    checker[1] = true
+
+                } else {
+                    document.getElementById('heightInputWarning').style.display = 'block'
+                    checker[1] = false
+                }
+            } else {
+                document.getElementById('heightInputWarning').style.display = 'block'
+                checker[1] = false
+            }
+            checkChecker()
+        }
+
+        function checkFuelInput() {
+            value = document.getElementById('fuelInput').value
+            pastValue = 10
+
+
+            percentageDiff = 100 - ((100/10) * value)
+            percentageDiff = Math.abs(percentageDiff)
+
+            console.log(percentageDiff)
+            if (percentageDiff < 20) {
+                document.getElementById('fuelInputWarning1').style.display = 'none'
+                checker[2] = true
+            } else {
+                document.getElementById('fuelInputWarning1').innerText = 'WARNING : You current input is more than 20% different compared to your pervious input for this option. If the value is correct please proceed'
+                document.getElementById('fuelInputWarning1').style.display = 'block'
+                // checker[2] = false
+                checker[2] = true
+
+            }
+            checkChecker()
+        }
+
+        function checkChecker(){
+            res = true
+
+            for(i in checker){
+                if(checker[i] == false){
+                    res = false
+                    console.log(checker[i])
+
+                }
+            }
+            console.log("res")
+            console.log(res)
+            if (res == true){
+                console.log("can")
+                document.getElementById('buttton').innerHTML = `<button type="button" class="btn btn-primary">Submit</button>`
+                document.getElementById('submitwarning').style.display='none'
+            }else{
+                console.log("cannot")
+                document.getElementById('buttton').innerHTML = `<button type="button" class="btn btn-primary" disabled>Submit</button>`
+                document.getElementById('submitwarning').style.display='block'
+            }
+        }
+
+        checkChecker()
+    </script>
+
+
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
