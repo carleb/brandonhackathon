@@ -55,30 +55,16 @@
     <div class='container d-flex mb-5'>
         <div class='m-auto text-center'>
             <h3 class='display-6 text-center text-decoration-underline'>Data Table</h3>
-            <table id="table" border="1">
-                <thead>
-                    <th>Ship ID</th>
-                    <th>Name</th>
-                    <th>Date Time</th>
-                    <th>Submitted on</th>
-                    <th>Form Name</th>
-                    <th>Info</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>123</td>
-                        <td>Caleb Cheong</td>
-                        <td>2021-10-10</td>
-                        <td>2021-10-10 12:00PM</td>
-                        <td>Ship Attendance</td>
-                        <td> <a name="" id="" class="btn btn-primary mt-2 " href="#" role="button">View info</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <a name="" id="button-a" class="btn btn-primary mt-2" href="#" role="button">Export
-                table to excel</a>
+
+            <button type="button" class="btn btn-dark text-light rounded-2 "> <label id='importTable' for="file">Import
+                    Table</label></button>
+            <input type="file" class="button button-secondary m-2 w-50" style="display:none" id="file"
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="file" multiple
+                onchange="loadFile(event)">
         </div>
     </div>
+
+    <div id="wrapper"></div>
 
 
     <nav class="nav fixed-bottom navbar-light bg-light justify-content-center ">
@@ -86,19 +72,17 @@
         <a class="nav-link" href="todo.html">Forms to do</a>
         <a class="nav-link" href="sendForm.html">Send out forms</a>
         <a class="nav-link" href="createNewForm.html">Create form</a>
-        <a class="nav-link" href="maintenance.html">Ship Profile</a>
+        <a class="nav-link" href="maintenance.html">Maintenance</a>
     </nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.min.js"
-        integrity="sha512-JiRzqZPYxjedpFqoYdKBcsKiBUfsmRZTyjuGlumbyJt4WJfWBZNqIizmbNgPN19VFtg3NYywvNk9lkt4KXVhiA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
-        integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.3/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+
 
     <script>
         var crewID = "";
@@ -149,18 +133,16 @@
         checkIfSync()
 
 
-        var wb = XLSX.utils.table_to_book(document.getElementById('table'), { sheet: "Sheet JS" });
-        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
-        function s2ab(s) {
-            var buf = new ArrayBuffer(s.length);
-            var view = new Uint8Array(buf);
-            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-            return buf;
+        function loadFile(e) {
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(e.target.files[0]);
+            reader.onload = function (e) {
+                var data = new Uint8Array(reader.result);
+                var wb = XLSX.read(data, { type: 'array' });
+                var htmlstr = XLSX.write(wb, { sheet: "Customer Report", type: 'binary', bookType: 'html' });
+                $('#wrapper')[0].innerHTML += htmlstr;
+            }
         }
-        $("#button-a").click(function () {
-            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'test.xlsx');
-        });
-
 
     </script>
 

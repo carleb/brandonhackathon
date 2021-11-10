@@ -123,8 +123,9 @@
                         placeholder="What is the cost of fuel?" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
                 <div style='text-align:center;'>
-                    <label class="form-label" style='display:none;color:rgb(240, 139, 45)' id='fuelInputWarning1'>Please double
-                    check your input.</label>
+                    <label class="form-label" style='display:none;color:rgb(240, 139, 45)' id='fuelInputWarning1'>Please
+                        double
+                        check your input.</label>
                 </div>
             </div>
         </div>
@@ -205,7 +206,7 @@
 
         checker = {}
 
-        for(i=0;i<3;i++){
+        for (i = 0; i < 3; i++) {
             checker[i] = false
         }
 
@@ -264,7 +265,7 @@
             pastValue = 10
 
 
-            percentageDiff = 100 - ((100/10) * value)
+            percentageDiff = 100 - ((100 / 10) * value)
             percentageDiff = Math.abs(percentageDiff)
 
             console.log(percentageDiff)
@@ -281,11 +282,11 @@
             checkChecker()
         }
 
-        function checkChecker(){
+        function checkChecker() {
             res = true
 
-            for(i in checker){
-                if(checker[i] == false){
+            for (i in checker) {
+                if (checker[i] == false) {
                     res = false
                     console.log(checker[i])
 
@@ -293,18 +294,27 @@
             }
             console.log("res")
             console.log(res)
-            if (res == true){
+            if (res == true) {
                 console.log("can")
-                document.getElementById('buttton').innerHTML = `<button type="button" class="btn btn-primary">Submit</button>`
-                document.getElementById('submitwarning').style.display='none'
-            }else{
+                document.getElementById('buttton').innerHTML = `<button type="button" onclick='submitForm()' class="btn btn-primary">Submit</button>`
+                document.getElementById('submitwarning').style.display = 'none'
+            } else {
                 console.log("cannot")
-                document.getElementById('buttton').innerHTML = `<button type="button" class="btn btn-primary" disabled>Submit</button>`
-                document.getElementById('submitwarning').style.display='block'
+                document.getElementById('buttton').innerHTML = `<button type="button" onclick='submitForm()' class="btn btn-primary" disabled>Submit</button>`
+                document.getElementById('submitwarning').style.display = 'block'
             }
         }
 
         checkChecker()
+
+        function submitForm() {
+            dateInput = document.getElementById('dateInput').value
+            nameInput = document.getElementById('nameInput').value
+            heightInput = document.getElementById('heightInput').value
+            fuelInput = document.getElementById('fuelInput').value
+            now = Date.now();
+
+        }
     </script>
 
 
