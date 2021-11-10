@@ -36,6 +36,9 @@
         }
     </style>
 
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/979f8a9a53.js" crossorigin="anonymous"></script>   
+
 
 </head>
 
@@ -48,8 +51,8 @@
 
     <div class="p-5 darkBlue text-light">
         <div class="container text-center">
-            <h1 class="display-3">Ship Maintenance</h1>
-            <p class="lead">Keep track of your ship's maintenance while you are on your journey</p>
+            <h1 class="display-3">Ship Profile</h1>
+            <p class="lead">Keep track of your ship's profile while you are on your journey</p>
             <p>Ship ID: <span id="shipId"></span></p>
             <hr class="my-2">
         </div>
@@ -65,7 +68,8 @@
                         <span class="input-group-text">Port Departed From</span>
                     </div>
 
-                    <input type="text" class="form-control bg-light" style="width: 20px" readonly value="Japan Tokyo (JPN)">
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="Japan Tokyo (JPN)">
                 </div>
                 <div class="input-group mt-3">
 
@@ -82,7 +86,8 @@
                         <span class="input-group-text">Total Distance Of Trip:</span>
                     </div>
 
-                    <input type="text" class="form-control bg-light" style="width: 20px" readonly value="450 KM (Kilometers)">
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="450 KM (Kilometers)">
                 </div>
                 <div class="input-group mt-3">
 
@@ -90,7 +95,8 @@
                         <span class="input-group-text">Current Distance Covered:</span>
                     </div>
 
-                    <input type="text" class="form-control bg-light" style="width: 20px" readonly value="200 KM (Kilometers)">
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="200 KM (Kilometers)">
                 </div>
                 <div class="input-group mt-3">
 
@@ -147,12 +153,21 @@
         </div>
     </div>
 
+    <div style="color: white;" class="my-5">
+        Hello
+    </div>
+
     <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
-        <a class="nav-link text-decoration-none text-light" href="home.html">Home</a>
-        <a class="nav-link text-decoration-none text-light" href="todo.html">Forms to do</a>
-        <a class="nav-link text-decoration-none text-light" href="sendForm.html">Send out forms</a>
-        <a class="nav-link text-decoration-none text-light" href="createNewForm.html">Create form</a>
-        <a class="nav-link text-decoration-none text-light" href="maintenance.html">Maintenance</a>
+        <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-link text-decoration-none text-light" href="todo.html"><i class="fab fa-wpforms"></i> Forms to
+            do</a>
+        <a class="nav-link text-decoration-none text-light" href="sendForm.html"><i class="far fa-paper-plane"></i>
+            Send
+            out forms</a>
+        <a class="nav-link text-decoration-none text-light" href="createNewForm.html"><i class="far fa-plus-square"></i>
+            Create form</a>
+        <a class="nav-link text-decoration-none text-light" href="maintenance.html"> <i class="fas fa-tools"></i>
+            Ship Profile</a>
     </nav>
 
     <script>
