@@ -12,9 +12,6 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../css/scheme.css">
-
-
-
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/979f8a9a53.js" crossorigin="anonymous"></script>
     <style>
@@ -73,28 +70,32 @@
         <div class='row m-auto text-center'>
             <h3 class='display-6 text-center'>Create Form Via Camera</h3>
             <!-- Box -->
-
             <div class='h-50 w-100 align-items-stretch px-2 py-3 mt-3'>
                 <div class="m-auto">
-                    <button type="button" class="btn btn-dark text-light rounded2 w-50"> <label id='uploadImageLabel'
+                    <button type="button" class="btn btn-dark text-light rounded-2 w-50"> <label id='uploadImageLabel'
                             for="file">Take a photo</label></button>
                     <input type="file" class="button button-secondary m-2 w-50" style="display:none" id="file"
                         accept="image/png, image/jpeg, image/heic" name="file" multiple
                         onchange="loadImageDisplay(event)">
                 </div>
             </div>
-            <div class='row m-auto text-center'>
+            <div class='m-auto text-center'>
                 <img id="output" class="card-img-top rounded2 shadow" style='max-height:700px; object-fit:cover'>
-                <button class='btn btn-dark text-light text-center mt-3 w-50' style='display:none' id='processImage'
-                    onclick="stepTwo()">
-                    Process Form
-                    Image</button>
+                <div class="m-auto">
+                    <button class='btn btn-dark text-light mt-3 w-50' style='display:none' id='processImage'
+                        onclick="stepTwo()">
+                        Process Form Image</button>
+                </div>
             </div>
         </div>
         <div class="row m-auto text-center">
             <h3 class='display-6 text-center'>Create Form using in-built form builder</h3>
             <div class="row m-auto">
-                <button class='btn btn-dark text-light w-100' onclick="redirect()">Start building form</button>
+                <div class="m-auto">
+                    <br>
+                    <button class='btn btn-dark text-light rounded-2 w-50' onclick="redirect()">Start building
+                        form</button>
+                </div>
             </div>
         </div>
     </div>
@@ -187,10 +188,9 @@
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
             document.getElementById('uploadImageLabel').innerText = 'Change image'
-            document.getElementById('processImage').style.display = 'block'
+            document.getElementById('processImage').style.display = 'inline-block'
         }
     </script>
-
 
 
     <!-- Bootstrap JavaScript Libraries -->

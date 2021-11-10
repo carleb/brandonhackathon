@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+
+    <link rel="stylesheet" href="../css/scheme.css">
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/979f8a9a53.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -19,10 +24,16 @@
         <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
-    <div class="p-5 bg-light text-center">
-        <h1 class="display-3">Crew Managment</h1>
-        <p class="lead">Manage Crew of Ship ID : 111</p>
-        <hr class="my-2">
+    <div class="p-1 darkBlue text-light text-center">
+        <h1 class="display-3">Crew Member Details
+            <br>
+            <span id='name'></span>
+            <br>
+            <span id='shipId'></span>
+        </h1>
+
+        <p class="lead"> Edit your crew members details below
+        </p>
     </div>
 
     <div class='container'>
@@ -34,46 +45,46 @@
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Crew ID</label>
-                <input type="email" class="form-control" id="idInput">  
+                <input type="email" class="form-control mt-2" id="idInput">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Name</label>
-                <input type="email" class="form-control" id="nameInput">  
+                <input type="email" class="form-control mt-2" id="nameInput">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Crew type</label>
-                <input type="email" class="form-control" id="typeInput">  
+                <input type="email" class="form-control mt-2" id="typeInput">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Password</label>
-                <input type="email" class="form-control" id="passwordInput">  
+                <input type="email" class="form-control mt-2" id="passwordInput">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Other Information #1</label>
-                <input type="email" class="form-control" >  
+                <input type="email" class="form-control mt-2">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Other Information #2</label>
-                <input type="email" class="form-control" >  
+                <input type="email" class="form-control mt-2">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1">Other Information #3</label>
-                <input type="email" class="form-control" >  
+                <input type="email" class="form-control mt-2">
             </div>
         </div>
-        <div class ='row'>
+        <div class='row'>
             <div class='col mt-3'>
                 <a class='btn btn-primary' href="./home.html">
                     Save
@@ -85,13 +96,23 @@
         </div>
     </div>
 
+    <div style="color: white;" class="my-5">
+        Hello
+    </div>
 
-    <nav class="nav fixed-bottom navbar-light bg-light justify-content-center ">
-        <a class="nav-link" href="./home.html">Home</a>
-        <a class="nav-link" href="#">Forms to do</a>
-        <a class="nav-link" href="#">Send out forms</a>
-        <a class="nav-link" href="#">Create form</a>
-        <a class="nav-link" href="#">Maintenance</a>
+
+    <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
+        <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-link text-decoration-none text-light" href="todo.html"><i class="fab fa-wpforms"></i> Forms to
+            do</a>
+        <a class="nav-link text-decoration-none text-light" href="sendForm.html"><i class="far fa-paper-plane"></i>
+            Send
+            out forms</a>
+        <a class="nav-link text-decoration-none text-light" href="createNewForm.html"><i
+                class="far fa-plus-square"></i>
+            Create form</a>
+        <a class="nav-link text-decoration-none text-light" href="maintenance.html"> <i class="fas fa-tools"></i>
+            Maintenance</a>
     </nav>
 
 
@@ -110,9 +131,9 @@
     currentCrewMembers = myStorage.currentCrewMembers
 
     currentCrewMembers = {
-        "001":["Caleb","Crew Member","password"],
-        "002":["Tom","Crew Member","password"],
-        "003":["Gabriel","Crew Member","password"]
+        "001": ["Caleb", "Crew Member", "password"],
+        "002": ["Tom", "Crew Member", "password"],
+        "003": ["Gabriel", "Crew Member", "password"]
         // "999":["Caleb","Crew Member","password"]
     }
 
@@ -125,41 +146,41 @@
     currentUserData = currentCrewMembers[c]
     console.log(currentUserData)
 
-    document.getElementById('title').innerText = "Editing Crew ID :"+c
     document.getElementById('nameInput').value = currentUserData[0]
     document.getElementById('typeInput').value = currentUserData[1]
     document.getElementById('passwordInput').value = currentUserData[2]
     // document.getElementById('nameInput').value = currentUserData[0]
     document.getElementById('idInput').value = c
 
-    function sync (){
-            loader = document.querySelector('#loader');
-            console.log(status);
+    function sync() {
+        loader = document.querySelector('#loader');
+        console.log(status);
 
-            loader.style.display = "";
-            window.setTimeout(function(){
-                window.sessionStorage.sync = true
+        loader.style.display = "";
+        window.setTimeout(function () {
+            window.sessionStorage.sync = true
+            document.getElementById('status').innerHTML = "Up to date";
+            document.getElementById('status').className = "text-success";
+            document.querySelector('#loader').style.display = "none";
+        }, 3000)
+    }
+
+    function checkIfSync() {
+        console.log("Sync")
+        console.log(window.sessionStorage.sync)
+        if (window.sessionStorage.sync === undefined) {
+            console.log("notSync")
+        } else {
+            if (window.sessionStorage.sync) {
                 document.getElementById('status').innerHTML = "Up to date";
-                document.getElementById('status').className ="text-success";
+                document.getElementById('status').className = "text-success";
                 document.querySelector('#loader').style.display = "none";
-            },3000)
-        }
-
-        function checkIfSync(){
-            console.log("Sync")
-            console.log(window.sessionStorage.sync)
-            if(window.sessionStorage.sync=== undefined){
-                console.log("notSync")
-            }else{
-                if(window.sessionStorage.sync){
-                    document.getElementById('status').innerHTML = "Up to date";
-                    document.getElementById('status').className ="text-success";
-                    document.querySelector('#loader').style.display = "none";
-                }
-
             }
+
         }
-        checkIfSync()
+    }
+    checkIfSync()
 
 </script>
+
 </html>
