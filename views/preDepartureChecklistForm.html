@@ -47,7 +47,7 @@
     </nav>
 
     <div class="p-1 bg-light text-center">
-        <h1 class="display-3">Pre-Departure Checklist | Form#001</h1>
+        <h1 class="display-3">Pre-Departure Checklist | Form#002</h1>
         <p class="lead">Depart From: Singapore | Ship ID: <span id='shipid'></span> | Username: <span
                 id='username'></span>| User ID: <span id='userID'></span></p>
         <hr class="my-2">
@@ -76,10 +76,10 @@
         <div class='row'>
             <div class='col'>
 
-                <label class="form-label">Date : ( Format = DD/MM/YY )</label>
+                <label class="form-label">Date : ( Format = DD/MM/YYYY )</label>
                 <div class="input-group mb-3">
                     <input type="text" id='dateInput' class="form-control" placeholder="DD/MM/YY" aria-label="Username"
-                        aria-describedby="basic-addon1">
+                        aria-describedby="basic-addon1" disabled>
                 </div>
 
             </div>
@@ -89,12 +89,23 @@
             <div class='col'>
                 <label class="form-label">What is your name?</label>
                 <div class="input-group mb-3">
-                    <input type="text" onkeyup="checkNameInput()" id='nameInput' class="form-control"
-                        placeholder="Enter your name here in english" aria-label="Username"
+                    <input type="text" id='nameInput' class="form-control" placeholder="Enter your name here in english"
+                        aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col'>
+                <label class="form-label">How is the weather today?</label>
+                <div class="input-group mb-3">
+                    <input type="text" onkeyup="checkWeatherInput()" id='weatherInput' class="form-control"
+                        placeholder="Describe the weather now, in English" aria-label="Username"
                         aria-describedby="basic-addon1">
                 </div>
                 <div style='text-align:center;'>
-                    <label class="form-label text-danger" style='display:none' id='nameInputWanring'>Please only type in
+                    <label class="form-label text-danger" style='display:none' id='weatherInputWanring'>Please only type
+                        in
                         english charaters, our database do not accept non-english charaters</label>
                 </div>
             </div>
@@ -152,6 +163,8 @@
         var crewName = "";
         var shipId = "";
 
+        
+
         function getVariables() {
             crewID = sessionStorage.getItem("crewID");
             crewType = sessionStorage.getItem("crewType");
@@ -167,6 +180,7 @@
             // document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
             document.getElementById('shipid').innerHTML = shipId;
             document.getElementById('username').innerHTML = crewName;
+            document.getElementById('nameInput').value = crewName;
             document.getElementById('userID').innerHTML = crewID;
         }
 
@@ -227,14 +241,15 @@
             return true;
         }
 
-        function checkNameInput() {
-            value = document.getElementById('nameInput').value
+
+        function checkWeatherInput() {
+            value = document.getElementById('weatherInput').value
             // console.log(value)
             if (stringIsEnglish(value)) {
-                document.getElementById('nameInputWanring').style.display = 'none'
+                document.getElementById('weatherInputWanring').style.display = 'none'
                 checker[0] = true
             } else {
-                document.getElementById('nameInputWanring').style.display = 'block'
+                document.getElementById('weatherInputWanring').style.display = 'block'
                 checker[0] = false
 
             }
@@ -244,19 +259,25 @@
         function checkHeightInput() {
             value = document.getElementById('heightInput').value
             console.log(value)
-            if (value < 4) {
-                if (value >= 1) {
-                    document.getElementById('heightInputWarning').style.display = 'none'
-                    checker[1] = true
+            if (value == "") {
+                document.getElementById('heightInputWarning').style.display = 'none'
+                checker[1] = false
+            } else {
+                if (value <= 4) {
+                    if (value >= 1) {
+                        document.getElementById('heightInputWarning').style.display = 'none'
+                        checker[1] = true
 
+                    } else {
+                        document.getElementById('heightInputWarning').style.display = 'block'
+                        checker[1] = false
+                    }
                 } else {
                     document.getElementById('heightInputWarning').style.display = 'block'
                     checker[1] = false
                 }
-            } else {
-                document.getElementById('heightInputWarning').style.display = 'block'
-                checker[1] = false
             }
+
             checkChecker()
         }
 
@@ -273,7 +294,7 @@
                 document.getElementById('fuelInputWarning1').style.display = 'none'
                 checker[2] = true
             } else {
-                document.getElementById('fuelInputWarning1').innerText = 'WARNING : You current input is more than 20% different compared to your pervious input for this option. If the value is correct please proceed'
+                document.getElementById('fuelInputWarning1').innerText = 'WARNING : You current input is more than ' + percentageDiff + '% different compared to your pervious input for this option. Your last week input was 10, if the value is correct please proceed'
                 document.getElementById('fuelInputWarning1').style.display = 'block'
                 // checker[2] = false
                 checker[2] = true
@@ -307,13 +328,32 @@
 
         checkChecker()
 
+        console.log("test form data 1 start")
+        console.log(window.sessionStorage.form1Data)
+        console.log("test form data 1 end")
+
         function submitForm() {
             dateInput = document.getElementById('dateInput').value
             nameInput = document.getElementById('nameInput').value
+            weatherInput = document.getElementById('weatherInput').value
             heightInput = document.getElementById('heightInput').value
             fuelInput = document.getElementById('fuelInput').value
-            now = Date.now();
+            var now = new Date().toLocaleString().replace(",","").replace(/:.. /," ");
 
+            newData = ["formID#002","Pre-Departure Checklist", crewID, crewType, crewName, shipId, dateInput, nameInput, weatherInput, heightInput, fuelInput, now]
+
+            alert("Thank you, your response has been recorded. You will be redirected to the homepage now.")
+            myStorage = window.sessionStorage;
+
+            if (myStorage.form1Data == undefined) {
+
+                myStorage.form1Data = JSON.stringify([newData])
+            } else {
+                data = JSON.parse(myStorage.form1Data)
+                data.push(newData)
+                myStorage.form1Data = JSON.stringify(data)
+            }
+            window.location.href = "./home.html";
         }
     </script>
 
