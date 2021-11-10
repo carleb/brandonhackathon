@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.0.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../css/scheme.css">
+
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/979f8a9a53.js" crossorigin="anonymous"></script>   
+
+
+</head>
+
+<body onload='getVariables()'>
+    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
+        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
+        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+        <div id='loader' class='loader' style='display:none'></div>
+    </nav>
+
+    <div class="p-5 darkBlue text-light">
+        <div class="container text-center">
+            <h1 class="display-3">Ship Profile</h1>
+            <p class="lead">Keep track of your ship's profile while you are on your journey</p>
+            <p>Ship ID: <span id="shipId"></span></p>
+            <hr class="my-2">
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6 col-sm-8 grey p-3 text-light">
+                <h3 class="text-center">Journey Details</h3>
+                <div class="input-group">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Port Departed From</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="Japan Tokyo (JPN)">
+                </div>
+                <div class="input-group mt-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Arrival Desitination</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="Singapore Jurong Port (SIN)">
+                </div>
+                <div class="input-group mt-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Total Distance Of Trip:</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="450 KM (Kilometers)">
+                </div>
+                <div class="input-group mt-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Current Distance Covered:</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="200 KM (Kilometers)">
+                </div>
+                <div class="input-group mt-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Total Time In Sea:</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly
+                        value="30 Hours (2 Days 6 Hours)">
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-8  grey p-3 text-light">
+                <h3 class="text-center">Ship Details</h3>
+                <div class="input-group">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Port Side Engine</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly value="EiD1321">
+
+                    <button class="btn btn-outline-secondary bg-light" type="button">Request Check</button>
+
+                </div>
+                <div class="input-group mt-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Starboard Side Engine</span>
+                    </div>
+
+                    <input type="text" class="form-control bg-light" style="width: 20px" readonly value="NIL">
+                </div>
+            </div>
+        </div>
+        <div class='row mt-5'>
+            <button class="btn btn-dark w-100 rounded-2">View Progress of Journey</button>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <button class="btn btn-dark w-100 rounded-2">View Ship Equipment</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-dark w-100 rounded-2">View Weather & Sea Conditions</button>
+            </div>
+        </div>
+        <div class="row mt-5 mb-5">
+            <div class="col-6">
+                <button class="btn btn-dark w-100 rounded-2">View Ship Provisions</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-dark w-100 rounded-2">View Reported Defects</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="color: white;" class="my-5">
+        Hello
+    </div>
+
+    <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
+        <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-link text-decoration-none text-light" href="todo.html"><i class="fab fa-wpforms"></i> Forms to
+            do</a>
+        <a class="nav-link text-decoration-none text-light" href="sendForm.html"><i class="far fa-paper-plane"></i>
+            Send
+            out forms</a>
+        <a class="nav-link text-decoration-none text-light" href="createNewForm.html"><i class="far fa-plus-square"></i>
+            Create form</a>
+        <a class="nav-link text-decoration-none text-light" href="maintenance.html"> <i class="fas fa-tools"></i>
+            Ship Profile</a>
+    </nav>
+
+    <script>
+        var crewID = "";
+        var crewType = "";
+        var crewName = "";
+        var shipId = "";
+
+        function getVariables() {
+            crewID = sessionStorage.getItem("crewID");
+            crewType = sessionStorage.getItem("crewType");
+            crewName = sessionStorage.getItem("crewName");
+            shipId = sessionStorage.getItem("shipID");
+
+            console.log(crewID);
+            console.log(crewType);
+            console.log(crewName);
+            console.log(shipId);
+
+
+            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
+            document.getElementById('shipId').innerHTML = shipId;
+        }
+
+        function sync() {
+            loader = document.querySelector('#loader');
+            console.log(status);
+
+            loader.style.display = "";
+            window.setTimeout(function () {
+                document.getElementById('status').innerHTML = "Up to date";
+                document.getElementById('status').className = "text-success";
+                document.querySelector('#loader').style.display = "none";
+            }, 3000)
+        }
+
+        function checkIfSync() {
+            console.log("Sync")
+            console.log(window.sessionStorage.sync)
+            if (window.sessionStorage.sync === undefined) {
+                console.log("notSync")
+            } else {
+                if (window.sessionStorage.sync) {
+                    document.getElementById('status').innerHTML = "Up to date";
+                    document.getElementById('status').className = "text-success";
+                    document.querySelector('#loader').style.display = "none";
+                }
+
+            }
+        }
+        checkIfSync()
+    </script>
+
+
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
