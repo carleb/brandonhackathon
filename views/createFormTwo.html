@@ -44,9 +44,10 @@
 </head>
 
 <body onload='getVariables()'>
-    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
-        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
-        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+    <nav class="nav justify-content-end navbar-light darkBlue text-light p-3">
+        <p class="mt-2">App Status</p>
+        <a name="" id="syncBtn" class="btn btn-danger mx-2 align-self-center " onclick='sync()' href="#"
+            role="button">Sync</a>
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
 
@@ -89,13 +90,17 @@
         <div id='formArea'>
         </div>
         <div class="text-center">
-            <button type="submit" id="finalise" style="display:none" class="btn btn-dark text-light w-100">Finalise form</button>
+            <button type="submit" id="finalise" style="display:none" onclick="redirect()"
+                class="btn btn-dark text-light w-100">Finalise
+                form</button>
         </div>
     </div>
 
     <div class="my-5" style="color: white;">
-
+        Hello
     </div>
+
+
 
     <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
         <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
@@ -123,6 +128,7 @@
             if (value == 'checkbox') {
                 var element = `<div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="" id="">
+                                    <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
                                     <label class="form-check-label" for="">
                                         <input type='text' placeholder="Input Name">
                                     </label>
@@ -130,6 +136,7 @@
             } else {
                 var element = `<div class="mb-3">
                             <label for="" class="form-label"><input type='text' placeholder="Input Name"></label>
+                            <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
                             <input type='`+ value + `'' class="form-control" name="" id="" aria-describedby="helpId" placeholder="` + value + `">
                         </div>`
             }
@@ -154,9 +161,15 @@
             console.log(crewName);
             console.log(shipId);
 
-
-            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
-            document.getElementById('shipId').innerHTML = shipId;
+            if (sessionStorage.getItem('html') == null) {
+                console.log("Nothing")
+            } else {
+                html = sessionStorage.getItem('html')
+                if (html != 'null') {
+                    document.getElementById('formArea').innerHTML += html;
+                }
+                sessionStorage.setItem('html', null)
+            }
         }
 
         function sync() {
@@ -165,8 +178,10 @@
 
             loader.style.display = "";
             window.setTimeout(function () {
-                document.getElementById('status').innerHTML = "Up to date";
-                document.getElementById('status').className = "text-success";
+                btn = document.getElementById('syncBtn').classList;
+                btn.add('bg-success')
+                btn.remove('bg-danger')
+                sessionStorage.setItem('sync', 'sync')
                 document.querySelector('#loader').style.display = "none";
             }, 3000)
         }
@@ -178,14 +193,29 @@
                 console.log("notSync")
             } else {
                 if (window.sessionStorage.sync) {
-                    document.getElementById('status').innerHTML = "Up to date";
-                    document.getElementById('status').className = "text-success";
+                    btn = document.getElementById('syncBtn').classList;
+                    btn.add('bg-success')
+                    btn.remove('bg-danger')
                     document.querySelector('#loader').style.display = "none";
                 }
 
             }
         }
+
+        function deleteEle(element) {
+            console.log(element)
+            console.log(element.parentNode);
+            parent = element.parentNode.parentNode;
+            console.log(parent);
+            parent.removeChild(element.parentNode);
+        }
+
         checkIfSync()
+
+        function redirect() {
+            alert('Form created successfully! Form is saved inside database.');
+            window.location.replace('sendForm.html');
+        }
     </script>
 
 

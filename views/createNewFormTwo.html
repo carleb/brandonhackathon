@@ -44,9 +44,10 @@
 </head>
 
 <body onload='getVariables()'>
-    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
-        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
-        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+    <nav class="nav justify-content-end navbar-light darkBlue text-light p-3">
+        <p class="mt-2">App Status</p>
+        <a name="" id="syncBtn" class="btn btn-danger mx-2 align-self-center " onclick='sync()' href="#"
+            role="button">Sync</a>
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
 
@@ -58,7 +59,7 @@
             creation using the button below
         </p>
         <p class="lead">
-            <a class="btn btn-dark text-light" href="createFormTwo.html" role="button">Import form template to dynamic
+            <a class="btn btn-dark text-light" onclick="pushToDynamic()" role="button">Import form template to dynamic
                 form creation</a>
         </p>
     </div>
@@ -74,47 +75,64 @@
 
             <input type="text" class="form-control" style="width: 20px" placeholder="Enter form name">
         </div>
-        <div class="mb-2 mt-3">
-            <label for="" class="form-label">Name</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">Crew ID</label>
-            <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">Crew Number</label>
-            <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">Ship ID</label>
-            <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">Date Time</label>
-            <input type="datetime" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">Daily Task List</label>
-            <textarea class="form-control" name="" id="" rows="3"></textarea>
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">Task Progress</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-        </div>
-        <div class="mb-2">
-            <label for="" class="form-label">To-Do List</label>
-            <textarea class="form-control" name="" id="" rows="3"></textarea>
+        <div id="formArea">
+            <div class="mb-2 mt-3">
+                <label for="" class="form-label">Name</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">Crew ID</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">Crew Number</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">Ship ID</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <input type="number" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">Date Time</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <input type="datetime" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">Daily Task List</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <textarea class="form-control" name="" id="" rows="3"></textarea>
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">Task Progress</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="mb-2">
+                <label for="" class="form-label">To-Do List</label>
+                <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                <textarea class="form-control" name="" id="" rows="3"></textarea>
+            </div>
         </div>
         <div class="text-center mb-5">
-            <button type="submit" id="finalise" class="btn btn-dark text-light w-100 mt-2">Save form to presets</button>
+            <button type="submit" id="finalise" onclick="redirect()" class="btn btn-dark text-light w-100 mt-2">Save
+                form to
+                presets</button>
         </div>
     </div>
 
     <div style="color: white;" class="my-5">
         Hello
     </div>
-    
+
+    <div style="color: white;" class="my-2">
+        Hello
+    </div>
+
+
     <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
         <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
         <a class="nav-link text-decoration-none text-light" href="todo.html"><i class="fab fa-wpforms"></i> Forms to
@@ -133,6 +151,26 @@
         var crewName = "";
         var shipId = "";
 
+        function deleteEle(element) {
+            console.log(element)
+            console.log(element.parentNode);
+            parent = element.parentNode.parentNode;
+            console.log(parent);
+            parent.removeChild(element.parentNode);
+        }
+
+        function redirect() {
+            alert('Form created successfully! Form is saved inside database.');
+            window.location.replace('sendForm.html');
+        }
+
+        function pushToDynamic() {
+            html = document.getElementById('formArea').innerHTML
+            console.log(html);
+            sessionStorage.setItem('html', html);
+            window.location.replace('createFormTwo.html');
+        }
+
         function getVariables() {
             crewID = sessionStorage.getItem("crewID");
             crewType = sessionStorage.getItem("crewType");
@@ -144,9 +182,6 @@
             console.log(crewName);
             console.log(shipId);
 
-
-            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
-            document.getElementById('shipId').innerHTML = shipId;
         }
 
         function sync() {
@@ -155,8 +190,10 @@
 
             loader.style.display = "";
             window.setTimeout(function () {
-                document.getElementById('status').innerHTML = "Up to date";
-                document.getElementById('status').className = "text-success";
+                btn = document.getElementById('syncBtn').classList;
+                btn.add('bg-success')
+                btn.remove('bg-danger')
+                sessionStorage.setItem('sync', 'sync')
                 document.querySelector('#loader').style.display = "none";
             }, 3000)
         }
@@ -168,13 +205,16 @@
                 console.log("notSync")
             } else {
                 if (window.sessionStorage.sync) {
-                    document.getElementById('status').innerHTML = "Up to date";
-                    document.getElementById('status').className = "text-success";
+                    btn = document.getElementById('syncBtn').classList;
+                    btn.add('bg-success')
+                    btn.remove('bg-danger')
                     document.querySelector('#loader').style.display = "none";
                 }
 
             }
         }
+
+
         checkIfSync()
     </script>
 

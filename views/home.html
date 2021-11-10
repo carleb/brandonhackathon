@@ -41,13 +41,14 @@
 </head>
 
 <body onload="getVariables()">
-    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
-        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
-        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+    <nav class="nav justify-content-end navbar-light darkBlue text-light p-3">
+        <p class="mt-2">App Status</p>
+        <a name="" id="syncBtn" class="btn btn-danger mx-2 align-self-center " onclick='sync()' href="#"
+            role="button">Sync</a>
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
     <div class="p-5 darkBlue text-light text-center">
-        <h1 class="display-3">The Klaver Application</h1>
+        <h1 class="display-3">Klaver</h1>
         <h3>Welcome <span id='name'></span></h3>
         <br>
         <h6>Current Ship ID: <span id='shipId'></span></h6>
@@ -93,7 +94,8 @@
                         <h4 class="card-title">Create Form</h4>
                     </div>
                     <div class='card-footer'>
-                        <a name="" id="" class="btn btn-dark text-light" href="./createNewForm.html" role="button">Create New
+                        <a name="" id="" class="btn btn-dark text-light" href="./createNewForm.html"
+                            role="button">Create New
                             Form</a>
                     </div>
                 </div>
@@ -109,22 +111,24 @@
 
                     </div>
                     <div class='card-footer'>
-                        <a name="" id="" class="btn btn-dark text-light" href="maintenance.html" role="button">Check Ship Status</a>
+                        <a name="" id="" class="btn btn-dark text-light" href="maintenance.html" role="button">Check
+                            Ship Status</a>
                     </div>
                 </div>
             </div>
         </div>
         <div id='shipmaster' style='display:none'
             class='row mt-5 d-flex align-items-center justify-content-center mb-5'>
-            
+
             <div class="col-md-3 mt-3">
                 <div class="card align-items-stretch h-100">
-                    <img class="card-img-top h-50 w-50 m-auto mt-3" src="../images/crew.png"  alt="">
+                    <img class="card-img-top h-50 w-50 m-auto mt-3" src="../images/crew.png" alt="">
                     <div class="card-body">
                         <h4 class="card-title">Crew Management</h4>
                     </div>
                     <div class='card-footer'>
-                        <a name="" id="" class="btn btn-dark text-light" href="./crewManagement.html" role="button">View Crew Details</a>
+                        <a name="" id="" class="btn btn-dark text-light" href="./crewManagement.html" role="button">View
+                            Crew Details</a>
                     </div>
                 </div>
             </div>
@@ -132,16 +136,17 @@
             </div>
             <div class="col-md-3 mt-3">
                 <div class="card align-items-stretch h-100">
-                    <img class="card-img-top h-50 w-50 m-auto mt-3" src="../images/crew.png"  alt="">
+                    <img class="card-img-top h-50 w-50 m-auto mt-3" src="../images/folder.png" alt="">
                     <div class="card-body">
                         <h4 class="card-title">Data Management</h4>
                     </div>
                     <div class='card-footer'>
-                        <a name="" id="" class="btn btn-dark text-light" href="./exportImportData.html" role="button">Export/Import Data</a>
+                        <a name="" id="" class="btn btn-dark text-light" href="./exportImportData.html"
+                            role="button">Export/Import Data</a>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <div style="color: white;" class="my-5">
@@ -194,9 +199,10 @@
 
             loader.style.display = "";
             window.setTimeout(function () {
-                window.sessionStorage.sync = true
-                document.getElementById('status').innerHTML = "Up to date";
-                document.getElementById('status').className = "text-success";
+                btn = document.getElementById('syncBtn').classList;
+                btn.add('bg-success')
+                btn.remove('bg-danger')
+                sessionStorage.setItem('sync','sync')
                 document.querySelector('#loader').style.display = "none";
             }, 3000)
         }
@@ -208,8 +214,9 @@
                 console.log("notSync")
             } else {
                 if (window.sessionStorage.sync) {
-                    document.getElementById('status').innerHTML = "Up to date";
-                    document.getElementById('status').className = "text-success";
+                    btn = document.getElementById('syncBtn').classList;
+                    btn.add('bg-success')
+                    btn.remove('bg-danger')
                     document.querySelector('#loader').style.display = "none";
                 }
 
@@ -223,7 +230,7 @@
         console.log(myStorage.form1Data)
         console.log("test form data 1 end")
 
-</script>
+    </script>
 
 
 

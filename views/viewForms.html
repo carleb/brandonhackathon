@@ -38,9 +38,10 @@
 </head>
 
 <body onload='getVariables()'>
-    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
-        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
-        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+    <nav class="nav justify-content-end navbar-light darkBlue text-light p-3">
+        <p class="mt-2">App Status</p>
+        <a name="" id="syncBtn" class="btn btn-danger mx-2 align-self-center " onclick='sync()' href="#"
+            role="button">Sync</a>
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
 
@@ -72,7 +73,8 @@
                 </div>
                 <!-- End Box -->
             </div>
-            <a name="" id="" class="btn btn-primary mt-4" href="convertExcel.html" role="button">Convert forms to excel file</a>
+            <a name="" id="" class="btn btn-primary mt-4" href="convertExcel.html" role="button">Convert forms to excel
+                file</a>
         </div>
     </div>
 
@@ -119,8 +121,10 @@
 
             loader.style.display = "";
             window.setTimeout(function () {
-                document.getElementById('status').innerHTML = "Up to date";
-                document.getElementById('status').className = "text-success";
+                btn = document.getElementById('syncBtn').classList;
+                btn.add('bg-success')
+                btn.remove('bg-danger')
+                sessionStorage.setItem('sync', 'sync')
                 document.querySelector('#loader').style.display = "none";
             }, 3000)
         }
@@ -132,13 +136,15 @@
                 console.log("notSync")
             } else {
                 if (window.sessionStorage.sync) {
-                    document.getElementById('status').innerHTML = "Up to date";
-                    document.getElementById('status').className = "text-success";
+                    btn = document.getElementById('syncBtn').classList;
+                    btn.add('bg-success')
+                    btn.remove('bg-danger')
                     document.querySelector('#loader').style.display = "none";
                 }
 
             }
         }
+
         checkIfSync()
     </script>
 

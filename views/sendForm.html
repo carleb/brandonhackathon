@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 
-    <head>
-        <title>Title</title>
-        <!-- Required meta tags -->
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -41,9 +41,10 @@
 </head>
 
 <body onload='getVariables()'>
-    <nav class="nav justify-content-end  navbar-light bg-light mt-2 p-3">
-        <p>Sync Status: <span id='status' class='text-danger'>Not updated</span></p>
-        <a name="" id="" class="btn btn-primary mx-2" onclick='sync()' href="#" role="button">Sync</a>
+    <nav class="nav justify-content-end navbar-light darkBlue text-light p-3">
+        <p class="mt-2">App Status</p>
+        <a name="" id="syncBtn" class="btn btn-danger mx-2 align-self-center " onclick='sync()' href="#"
+            role="button">Sync</a>
         <div id='loader' class='loader' style='display:none'></div>
     </nav>
 
@@ -82,7 +83,7 @@
                         role="button">Show Details</a>
                 </div>
                 <div class='row mt-4 ' id="info1" style="display: none;">
-                    <p class="px-5 py-3">
+                    <p class="text-center">
                         This is the standardized form for daily attendance taking for crew members. It contains the
                         following:
                         <br>
@@ -111,7 +112,7 @@
                         role="button">Show Details</a>
                 </div>
                 <div id="info2" class='row mt-4' style="display:none">
-                    <p class="px-5 py-3">
+                    <p class="text-center">
                         This is a pre-departure checklist for all crew members for ship voyage. It contains the
                         following:
                         <br>
@@ -155,7 +156,7 @@
             </div>
         </div>
     </div>
-    
+
     <div style="color: white;" class="my-5">
         Hello
     </div>
@@ -230,11 +231,32 @@
 
             loader.style.display = "";
             window.setTimeout(function () {
-                document.getElementById('status').innerHTML = "Up to date";
-                document.getElementById('status').className = "text-success";
+                btn = document.getElementById('syncBtn').classList;
+                btn.add('bg-success')
+                btn.remove('bg-danger')
+                sessionStorage.setItem('sync', 'sync')
                 document.querySelector('#loader').style.display = "none";
             }, 3000)
         }
+
+        function checkIfSync() {
+            console.log("Sync")
+            console.log(window.sessionStorage.sync)
+            if (window.sessionStorage.sync === undefined) {
+                console.log("notSync")
+            } else {
+                if (window.sessionStorage.sync) {
+                    btn = document.getElementById('syncBtn').classList;
+                    btn.add('bg-success')
+                    btn.remove('bg-danger')
+                    document.querySelector('#loader').style.display = "none";
+                }
+
+            }
+        }
+        checkIfSync()
+
+
     </script>
 
 
