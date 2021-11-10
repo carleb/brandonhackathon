@@ -100,10 +100,15 @@
             <div class='col-3'>
             </div>
             <div class='col-4'>
-                <button type="button" class="btn btn-dark">Export Data</button>
+                <button type="button" class="btn btn-dark text-light rounded-2" onclick='exportData()'>Export
+                    Data</button>
             </div>
             <div class='col-4'>
-                <button type="button" class="btn btn-dark">Import Data</button>
+                <button type="button" class="btn btn-dark text-light rounded-2 "> <label id='importTable'
+                        for="file">Import
+                        Data</label></button>
+                <input type="file" class="button button-secondary m-2 w-50" style="display:none" id="file" accept=".csv"
+                    name="file" onchange="loadFile(event)">
             </div>
         </div>
     </div>
@@ -121,7 +126,7 @@
         <a class="nav-link text-decoration-none text-light" href="maintenance.html"> <i class="fas fa-tools"></i>
             Ship Profile</a>
     </nav>
-    <script src="/js/data.js"></script>
+
 
     <script>
         var crewID = "";
@@ -178,6 +183,19 @@
             dt.innerHTML = date;
         }
 
+        function csvToArray(str, delimiter = ",") {
+            const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+            const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+            const arr = rows.map(function (row) {
+                const values = row.split(delimiter);
+                const el = headers.reduce(function (object, header, index) {
+                    object[header] = values[index];
+                    return object;
+                }, {});
+                return el;
+            });
+            return arr;
+        }
 
         function showInfo(info, el) {
             infoNode = document.getElementById(info);
@@ -267,9 +285,38 @@
             document.getElementById('tableBody').innerHTML = newTableBody
         }
 
-        function exportData(){
-            exportToCsv("export.csv",formData)
+        function exportData() {
+            time = new Date()
+            fileName = "KlaverDataExport-" + time
+            exportToCsv(fileName + ".csv", formData)
         }
+
+        function importDate() {
+        }
+        function loadFile(e) {
+            const input = e.target.files[0]
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                newOutput = e.target.result;
+                newOutput = newOutput.split("\n")
+                newAllData = []
+                for (data of newOutput) {
+                    data = data.split(',')
+                    if (data.length != 1) {
+                        newAllData.push(data)
+                    }
+                }
+                console.log(newAllData)
+                myStorage = window.sessionStorage;
+                myStorage.form1Data = JSON.stringify(newAllData)
+                location.reload()
+            };
+
+            reader.readAsText(input);
+        }
+
+
         function sync() {
             loader = document.querySelector('#loader');
             console.log(status);

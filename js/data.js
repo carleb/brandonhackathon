@@ -21,6 +21,11 @@ formData = `[["formID#002","Pre-Departure Checklist","111","Ship Master","Brando
 ["formID#001","Daily Ship Attendance","116","Ship CrewMember","Tom Chris","123","10/11/2021","Tom Chris","Good","1.75","10","11/10/2021 11:54 PM"],
 ["formID#001","Daily Ship Attendance","116","Ship CrewMember","Tom Chris","123","10/11/2021","Tom Chris","Good","1.75","10","11/10/2021 11:51 PM"]]
 `
+window.sessionStorage.loaded = false
 
-myStorage = window.sessionStorage;
-myStorage.form1Data=formData;
+if (window.sessionStorage.loaded == false) {
+    window.sessionStorage.loaded == true
+    myStorage = window.sessionStorage;
+    myStorage.form1Data = formData;
+}
+
