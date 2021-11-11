@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>To Do Forms</title>
+    <title>Form Analysis</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -57,9 +57,9 @@
 
         <div class='row'>
             <div class="p-1 darkBlue text-light text-center">
-                <p class="lead">Export / Import Data.
+                <p class="lead">Form Analysis.
                     <br>
-                    This page allows you to export or import data. In the event that there is no internet
+                    This page allows you to see the raw responses and simple analytics.
                 </p>
             </div>
         </div>
@@ -69,24 +69,89 @@
 
     <div class='container d-flex mb-5'>
         <div class='mt-2 w-100'>
-            <div class="border border-dark rounded darkBlue text-light">
-                <h3 class='display-6 text-center'>Form Datas in this system</h3>
+            <div class='row'>
+                <div class='col-12 border border-dark rounded darkBlue text-light'>
+                    <h3 class='display-6 text-center'>Pre-Departure Checklist</h3>
+                </div>
+            </div>
+
+            <div class='row mt-3 d-flex justify-content-between'>
+                <div class='col-6 border border-dark rounded lightBlue '>
+                    <h4>
+                        Responses Recorded : 9
+                    </h4>
+                    <h4>
+                        Total Response Expected : 12
+                    </h4>
+                    <br>
+                    <iframe width="100%" height="400" frameborder="0" scrolling="yes"
+                        src="//plotly.com/~carleb123/1.embed"></iframe>
+                </div>
+                <div class='col-5 border border-dark rounded'>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr style='text-align:center'>
+                                <th colspan='3'>
+                                    Names of those who have not responsed
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Id</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Joker</td>
+                                <td>201</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Peter Quill</td>
+                                <td>202</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Thanos</td>
+                                <td>203</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="text-align: center">
+                        <button type="button" class="btn btn-dark text-light rounded-2" onclick='sendReminder()'>Send
+                            Reminder to All</button>
+                    </div>
+                    <div class='mt-3' id='remindertext' style="text-align: center;display:none;color: cornflowerblue;">
+                        Lastest Reminder Send: Just Now
+                    </div>
+                </div>
             </div>
             <!-- Box -->
             <table class="table mt-3">
-                <thead>
+                <thead class='thead-dark darkBlue rounded' style='color:white'>
+                    <tr style="text-align: center;">
+                        <th colspan="9">
+                            Raw Responses
+                        </th>
+
+                    </tr>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Form ID</th>
-                        <th scope="col">Form Name</th>
-                        <th scope="col">Response Count</th>
-                        <th scope="col">Lastest Response Time</th>
-                        <th scope="col">More Info</th>
+                        <th scope="col">Crew ID</th>
+                        <th scope="col">Crew Type</th>
+                        <th scope="col">Crew Name</th>
+                        <th scope="col">Ship ID</th>
+                        <th scope="col">Date Time</th>
+                        <th scope="col">No. Of ART Test</th>
+                        <th scope="col">Vaccination Status</th>
+                        <th scope="col">No. Of boarding items</th>
                     </tr>
                 </thead>
                 <tbody id='tableBody'>
                     <tr>
-                        <td colspan='6' style='text-align:center'> There is no Data Present.</td>
+                        <td colspan='9' style='text-align:center'> There is no Data Present.</td>
                     </tr>
                 </tbody>
             </table>
@@ -137,7 +202,10 @@
         var today = new Date();
         var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
-
+        function sendReminder() {
+            confirm("Click 'OK' to send our reminder to : \n1. Joker#201 \n2. Peter Quill#202 \n3. Thanos#203");
+            document.getElementById('remindertext').style.display = 'block'
+        }
         function exportToCsv(filename, rows) {
             var processRow = function (row) {
                 var finalVal = '';
@@ -239,48 +307,35 @@
 
             formData = JSON.parse(formData)
 
-            // test = new Date('11/10/2021 11:54 PM').getTime()
-
-            allData = {}
-            for (data of formData) {
-                // console.log(data)
-                formID = data[0]
-                formName = data[1]
-
-                if (formID in allData) {
-                    allData[formID].count = allData[formID].count + 1
-
-                    oldTime = allData[formID].lastestTime
-                    oldTime = new Date(oldTime).getTime()
-
-                    newTime = data[data.length - 1]
-                    newTime = new Date(newTime).getTime()
-
-                    if (newTime > oldTime) {
-                        allData[formID].lastestTime = data[data.length - 1]
-                    }
-
-                } else {
-                    allData[formID] = { "name": formName, 'count': 1, "lastestTime": data[data.length - 1] }
-                }
-            }
-
             newTableBody = ''
-            row = 1
-            allData = sortOnKeys(allData);
-
-            for (id in allData) {
-                console.log(id)
-                tableRow = `<tr>
-                        <th scope="row">`+ row + `</th>
-                        <td>`+ id + `</td>
-                        <td>`+ allData[id].name + `</td>
-                        <td>`+ allData[id].count + `</td>
-                        <td>`+ allData[id].lastestTime + `</td>
-                        <td><button type="button" class="border rounded btn btn-light" onclick="window.location.href='/views/formAnalysis.html'">More</button></td>
+            counter = 1
+            for (data of formData) {
+                formID = data[0]
+                if (formID == 'formID#002') {
+                    console.log(data)
+                    crewID = data[2]
+                    crewType = data[3]
+                    crewName = data[4]
+                    shipId = data[5]
+                    dateTime = data[11]
+                    qn1 = data[8]
+                    qn2 = data[9]
+                    qn3 = data[10]
+                    counter++
+                    tableRow = `<tr>
+                        <th scope="row">`+ counter + `</th>
+                        <td>`+ crewID + `</td>
+                        <td>`+ crewType + `</td>
+                        <td>`+ crewName + `</td>
+                        <td>`+ shipId + `</td>
+                        <td>`+ dateTime + `</td>
+                        <td>`+ qn1 + `</td>
+                        <td>`+ qn2 + `</td>
+                        <td>`+ qn3 + `</td>
                     </tr>`
-                row++
-                newTableBody += tableRow
+                    newTableBody += tableRow
+                }
+
             }
 
             document.getElementById('tableBody').innerHTML = newTableBody
