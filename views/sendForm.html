@@ -12,6 +12,9 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href='../css/scheme.css'>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/979f8a9a53.js" crossorigin="anonymous"></script>
     <style>
@@ -51,11 +54,13 @@
     <div class="p-1 darkBlue text-light text-center">
         <h1 class="display-3">Your Details
             <br>
-            <span id='name'></span>
-            <br>
-            <span id='shipId'></span>
+            <h5>
+                <span id='name'></span>
+                <br>
+                Ship ID:<span id='shipId'></span>
+            </h5>
         </h1>
-        <p class="lead">In this page you are able to view the forms saved in the template database
+        <p class="lead">In this page you are able to view the past form templates saved by Klaveness staff
             <br>
             You can use any of the templates saved to send to your crew members on your ship.
         </p>
@@ -68,7 +73,7 @@
     <div class='container d-flex mb-5'>
         <div class='mt-2 w-100'>
             <div class="border border-dark rounded darkBlue text-light">
-                <h3 class='display-6 text-center'>Template Database</h3>
+                <h3 class='display-6 text-center'>Past Form Templates</h3>
             </div>
             <!-- Box -->
             <div class='border border-dark rounded align-items-stretchmt-3 mt-3 grey text-light'>
@@ -93,7 +98,8 @@
                     </p>
                 </div>
                 <div class='text-center mb-2'>
-                    <a name="" id="" class="btn btn-dark text-light mt-2" href="#" role="button">Use template</a>
+                    <a name="" id="" class="btn btn-dark text-light mt-2" data-bs-toggle="modal"
+                        data-bs-target="#sendModal" role="button">Use template</a>
                     <a name="" id="" class="btn btn-dark text-light mt-2 disabled" href="#" role="button">Check Latest
                         Form Changes</a>
                 </div>
@@ -122,7 +128,8 @@
                     </p>
                 </div>
                 <div class='text-center mb-2'>
-                    <a name="" id="" class="btn btn-dark text-light mt-2 " href="#" role="button">Use template</a>
+                    <a name="" id="" class="btn btn-dark text-light mt-2 " data-bs-toggle="modal"
+                        data-bs-target="#sendModal" role="button">Use template</a>
                     <button type="button" class="btn btn-dark text-light mt-2" data-bs-toggle="modal"
                         data-bs-target="#secondModal">
                         Check Latest Form Changes
@@ -137,12 +144,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Ship Attendance Form Update <span class='date'></span></h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="modal-body">
-                        <h6>Latest update by: Ryan ID: 999</h6>
+                        <h6>Latest update by: Ryan ID: 002</h6>
                         <p>This update was made to the form to include covid-19 vaccination status. All crew members
                             are
                             required to submit their vaccination status and ART test results before department on
@@ -150,8 +154,70 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary"
+                            onclick="$('#secondModal').modal('hide');">Close</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id='sendModal' tabindex="-2" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Send Form</h5>
+                </div>
+                <div class="modal-body">
+                    Select Type of Crew to send to:
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="" id="all" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            All Crew on Ship
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input crew" name="crew" id="" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            Crew Management
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input crew" name="crew" id="" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            Chief Engineer
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input crew" name="crew" id="" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            Crew Members
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input " name="" id="" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            Shore-based Personnels
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            Charterer
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
+                        <label class="form-check-label" for="">
+                            Ship Brokers
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark text-light" onclick="alt()">Send Forms</button>
+                    <button type="button" class="btn btn-secondary"
+                        onclick="$('#sendModal').modal('hide');">Close</button>
                 </div>
             </div>
         </div>
@@ -183,6 +249,34 @@
 
     <script>
 
+        var checkbox = document.querySelector("input[type=checkbox]");
+
+
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                if (this.id == "all") {
+                    checkboxes = document.querySelectorAll('input[name=crew]')
+                    console.log(checkboxes)
+                    for (node of checkboxes) {
+                        node.disabled = "disabled";
+                    }
+                }
+            } else {
+                if (this.id == "all") {
+                    checkboxes = document.querySelectorAll('input[name=crew]')
+                    console.log(checkboxes)
+                    for (node of checkboxes) {
+                        node.removeAttribute('disabled');
+                    }
+                }
+            };
+        })
+
+        function alt() {
+            alert("Your forms has been sent out to the respective selections");
+            $('#sendModal').modal('hide');
+        }
+
         var today = new Date();
         var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
@@ -208,7 +302,7 @@
             console.log(shipId);
 
 
-            document.getElementById("name").innerHTML = crewName;
+            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
             document.getElementById('shipId').innerHTML = shipId;
         }
 

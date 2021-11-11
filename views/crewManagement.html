@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body onload="getVariables()">
     <nav class="nav justify-content-end navbar-light darkBlue text-light p-3">
         <p class="mt-2">App Status</p>
         <a name="" id="syncBtn" class="btn btn-danger mx-2 align-self-center " onclick='sync()' href="#"
@@ -27,9 +27,11 @@
     <div class="p-1 darkBlue text-light text-center">
         <h1 class="display-3">Your Details
             <br>
-            <span id='name'></span>
-            <br>
-            <span id='shipId'></span>
+            <h5>
+                <span id='name'></span>
+                <br>
+                Ship ID:<span id='shipId'></span>
+            </h5>
         </h1>
         <h3>Crew Management</h3>
         <p class="lead">As part of higher management, you are able to view and edit the details of your crew members on
@@ -52,98 +54,82 @@
                         <th scope="col">Details</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Brandon Chris (You)</td>
-                        <td>Ship Master</td>
-                        <td>111</td>
-                        <td><a class="btn btn-secondary text-light" href='#'>View</a> <a
-                                class="btn btn-secondary text-light" href='crewManagamentEdit.html'>Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Caleb Cheong</td>
-                        <td>Ship Engineer</td>
-                        <td>001</td>
-                        <td><a class="btn btn-secondary text-light" href='#'>View</a> <a
-                                class="btn btn-secondary text-light" href='#'>Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Ryan</td>
-                        <td>Crew Member</td>
-                        <td>002</td>
-                        <td><a class="btn btn-secondary text-light" href='#'>View</a> <a
-                                class="btn btn-secondary text-light" href='#'>Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Gabriellele</td>
-                        <td>Crew Member</td>
-                        <td>003</td>
-                        <td><a class="btn btn-secondary text-light" href='#'>View</a> <a
-                                class="btn btn-secondary text-light" href='#'>Edit</a></td>
-                    </tr>
+                <tbody id="table">
                 </tbody>
             </table>
 
         </div>
+    </div>
 
-        <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
-            <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
-            <a class="nav-link text-decoration-none text-light" href="todo.html"><i class="fab fa-wpforms"></i> Forms to
-                do</a>
-            <a class="nav-link text-decoration-none text-light" href="sendForm.html"><i class="far fa-paper-plane"></i>
-                Send
-                out forms</a>
-            <a class="nav-link text-decoration-none text-light" href="createNewForm.html"><i
-                    class="far fa-plus-square"></i>
-                Create form</a>
-            <a class="nav-link text-decoration-none text-light" href="maintenance.html"> <i class="fas fa-tools"></i>
-                Ship Profile</a>
-        </nav>
+    <div style="color: white;" class="my-5">
+        Hello
+    </div>
 
-        <!-- Bootstrap JavaScript Libraries -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-            crossorigin="anonymous"></script>
+    <nav class="nav fixed-bottom navbar-light justify-content-center darkBlue">
+        <a class="nav-link text-decoration-none text-light" href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-link text-decoration-none text-light" href="todo.html"><i class="fab fa-wpforms"></i> Forms to
+            do</a>
+        <a class="nav-link text-decoration-none text-light" href="sendForm.html"><i class="far fa-paper-plane"></i>
+            Send
+            out forms</a>
+        <a class="nav-link text-decoration-none text-light" href="createNewForm.html"><i class="far fa-plus-square"></i>
+            Create form</a>
+        <a class="nav-link text-decoration-none text-light" href="maintenance.html"> <i class="fas fa-tools"></i>
+            Ship Profile</a>
+    </nav>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
 </body>
 
 <script>
 
-    myStorage = window.sessionStorage;
-    currentCrewMembers = {
-        "001": ["Caleb", "Crew Member", "password"],
-        "002": ["Tom", "Crew Member", "password"],
-        "003": ["Gabriel", "Crew Member", "password"]
-        // "999":["Caleb","Crew Member","password"]
+    var data = [
+        { name: "Brandon Chris", type: "Ship Master", id: 111, picture: "", years: 2, trips: 52 },
+        { name: "Caleb Cheong", type: "Ship Engineer", id: 122, picture: "", years: 1.35, trips: 32 },
+        { name: "Ryan", type: "Crew Member", id: 002, picture: "", years: 1.55, trips: 14 },
+        { name: "Gabrielle", type: "Crew Member", id: 003, picture: "", years: 0.55, trips: 6 }
+    ]
+
+    function getVariables() {
+            crewID = sessionStorage.getItem("crewID");
+            crewType = sessionStorage.getItem("crewType");
+            crewName = sessionStorage.getItem("crewName");
+            shipId = sessionStorage.getItem("shipID");
+
+            console.log(crewID);
+            console.log(crewType);
+            console.log(crewName);
+            console.log(shipId);
+
+
+            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
+            document.getElementById('shipId').innerHTML = shipId;
+        }
+
+    for (i = 0; i < data.length; i++) {
+        ppl = data[i]
+        str = `<tr>
+                        <td>`+ ppl.name + `</td>
+                        <td>`+ ppl.type + `</td>
+                        <td>`+ ppl.id + `</td>
+                        <td> <button class="btn btn-secondary text-light" onclick='checkDetails(`+ i + `)'>Edit Details</button></td>
+                </tr>
+        `
+        document.getElementById('table').innerHTML += str
     }
 
-    console.log(window.sessionStorage)
-
-    newHTML = ""
-    for (crewID in currentCrewMembers) {
-        data = currentCrewMembers[crewID]
-        // console.log(crewID)
-        // console.log(data)
-        crewHTML = `<div class='row'>
-                        <div class='col-4 border border-info'>
-                            `+ data[0] + `
-                        </div>
-                        <div class='col-4 border border-info'>
-                            `+ data[1] + `
-                        </div>
-                        <div class='col-2 border border-info'>
-                            `+ crewID + `
-                        </div>
-                        <div class='col-2 border border-info'>
-                            <a href='./crewManagamentEdit.html?crewId=`+ crewID + `'>edit</a>
-                        </div>
-                    </div>`
-        newHTML = newHTML + crewHTML
+    function checkDetails(idx) {
+        ppl = data[idx]
+        console.log(ppl);
+        sessionStorage.setItem('crew', JSON.stringify(ppl));
+        window.location.replace('crewManagementEdit.html');
     }
-
-    document.getElementById('crewMembersDiv').innerHTML = newHTML
 
     function sync() {
         loader = document.querySelector('#loader');

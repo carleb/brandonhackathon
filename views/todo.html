@@ -55,9 +55,11 @@
     <div class="p-1 darkBlue text-light text-center">
         <h1 class="display-3">Your Details
             <br>
-            <span id='name'></span>
-            <br>
-            <span id='shipId'></span>
+            <h5>
+                <span id='name'></span>
+                <br>
+                Ship ID:<span id='shipId'></span>
+            </h5>
         </h1>
         <p class="lead">In this page you are able to view the forms assigned to you.
             <br>
@@ -183,7 +185,8 @@
             console.log(shipId);
 
 
-            document.getElementById("name").innerHTML = crewName;
+
+            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
             document.getElementById('shipId').innerHTML = shipId;
         }
 

@@ -40,45 +40,35 @@
     <div class='container'>
         <div class='row'>
             <div class='col'>
-                <label for="exampleFormControlInput1" class="mt-2">Crew ID</label>
-                <input type="email" class="form-control mt-2" id="idInput">
+                <label for="exampleFormControlInput1" class="mt-2">Crew ID:</label>
+                <input type="number" class="form-control mt-2"  id='id'>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <label for="exampleFormControlInput1" class="mt-2">Name</label>
-                <input type="email" class="form-control mt-2" id="nameInput">
+                <label for="exampleFormControlInput1" class="mt-2">Name:</label>
+                <input type="text" class="form-control mt-2" id="crewName">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <label for="exampleFormControlInput1" class="mt-2">Crew type</label>
-                <input type="email" class="form-control mt-2" id="typeInput">
+                <label for="exampleFormControlInput1"  class="mt-2">Crew Type:</label>
+                <input type="text" class="form-control mt-2" id="type">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <label for="exampleFormControlInput1" class="mt-2">Password</label>
-                <input type="email" class="form-control mt-2" id="passwordInput">
+                <label for="exampleFormControlInput1" class="mt-2">Years of Experience:</label>
+                <input type="number" disabled id="years" class="form-control mt-2">
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <label for="exampleFormControlInput1" class="mt-2">Other Information #1</label>
-                <input type="email" class="form-control mt-2">
+                <label for="exampleFormControlInput1" class="mt-2">Number of Klaveness expeditions:</label>
+                <input type="number" disabled class="form-control mt-2" id="trips">
             </div>
         </div>
         <div class='row'>
-            <div class='col'>
-                <label for="exampleFormControlInput1" class="mt-2">Other Information #2</label>
-                <input type="email" class="form-control mt-2">
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col'>
-                <label for="exampleFormControlInput1">Other Information #3</label>
-                <input type="email" class="form-control mt-2">
-            </div>
         </div>
         <div class='row'>
             <div class='col mt-3'>
@@ -86,7 +76,7 @@
                     Save Changes
                 </a>
             </div>
-        </div>
+        </div> 
         <div id='crewMembersDiv'>
 
         </div>
@@ -122,30 +112,14 @@
 
 <script>
 
-    myStorage = window.sessionStorage;
-    currentCrewMembers = myStorage.currentCrewMembers
+    var ppl = sessionStorage.getItem('crew');
+    pplObj = JSON.parse(ppl);
+    document.getElementById('crewName').value = pplObj.name
+    document.getElementById('id').value = pplObj.id
+    document.getElementById('type').value = pplObj.type
+    document.getElementById('years').value = pplObj.years
+    document.getElementById('trips').value = pplObj.trips
 
-    currentCrewMembers = {
-        "001": ["Caleb", "Crew Member", "password"],
-        "002": ["Tom", "Crew Member", "password"],
-        "003": ["Gabriel", "Crew Member", "password"]
-        // "999":["Caleb","Crew Member","password"]
-    }
-
-    // console.log(window.location.href)
-    var url_string = window.location.href; //window.location.href
-    var url = new URL(url_string);
-    var c = url.searchParams.get("crewId");
-    // console.log(c);
-
-    currentUserData = currentCrewMembers[c]
-    console.log(currentUserData)
-
-    document.getElementById('nameInput').value = currentUserData[0]
-    document.getElementById('typeInput').value = currentUserData[1]
-    document.getElementById('passwordInput').value = currentUserData[2]
-    // document.getElementById('nameInput').value = currentUserData[0]
-    document.getElementById('idInput').value = c
 
 
     function sync() {
