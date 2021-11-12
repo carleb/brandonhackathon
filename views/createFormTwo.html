@@ -62,7 +62,7 @@
         <div class='row'>
             <div class="mb-3">
                 <label for="" class="form-label">Form Name</label>
-                <input type="text" onkeypress="addName()" class="form-control" name="" id="formInput"
+                <input type="text" onkeyup="addName()" class="form-control" name="" id="formInput"
                     aria-describedby="helpId" placeholder="">
                 <small id="helpId" class="form-text text-muted">Name your form something simple</small>
             </div>
@@ -124,6 +124,8 @@
             document.getElementById('formName').innerText = name;
         }
 
+        var rndmId = 0;
+
         function addForm() {
             document.getElementById('finalise').style.display = 'initial';
             var type = document.getElementById('type');
@@ -134,17 +136,19 @@
                                     <input type="checkbox" class="form-check-input" name="" id="">
                                     <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
                                     <label class="form-check-label" for="">
-                                        <input type='text' placeholder="Input Name">
+                                        <input type='text' id='`+ rndmId +`' placeholder="Input Name">
                                     </label>
                                 </div>`;
             } else {
                 var element = `<div class="mb-3">
                             <label for="" class="form-label"><input type='text' placeholder="Input Name"></label>
                             <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
-                            <input type='`+ value + `'' class="form-control" name="" id="" aria-describedby="helpId" placeholder="` + value + `">
+                            <input type='`+ value + `'' class="form-control" name="" id="`+ rndmId +`" aria-describedby="helpId" placeholder="` + value + `">
                         </div>`
             }
             document.getElementById('formArea').innerHTML += element;
+
+            rndmId++;
         }
     </script>
 
