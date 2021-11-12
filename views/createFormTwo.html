@@ -126,29 +126,56 @@
 
         var rndmId = 0;
 
+        var saved = [];
+
         function addForm() {
+            if (saved.length > 0) {
+                savedData();
+            }
             document.getElementById('finalise').style.display = 'initial';
             var type = document.getElementById('type');
-            console.log(type.value);
             var value = type.value;
             if (value == 'checkbox') {
+
                 var element = `<div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="" id="">
-                                    <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
+                                    <a onclick='deleteEle(this, `+ rndmId+`)'><i class="far fa-times-circle" style='float:right'></i></a>
                                     <label class="form-check-label" for="">
-                                        <input type='text' id='`+ rndmId +`' placeholder="Input Name">
+                                        <input type='text' id='`+ rndmId + `' onchange='saveInputName(this)'  placeholder="Input Name">
                                     </label>
                                 </div>`;
             } else {
                 var element = `<div class="mb-3">
-                            <label for="" class="form-label"><input type='text' placeholder="Input Name"></label>
-                            <a onclick='deleteEle(this)'><i class="far fa-times-circle" style='float:right'></i></a>
-                            <input type='`+ value + `'' class="form-control" name="" id="`+ rndmId +`" aria-describedby="helpId" placeholder="` + value + `">
+                            <label for="" class="form-label"><input type='text' placeholder="Input Name" id="`+ rndmId + `" onchange='saveInputName(this)'></label>
+                            <a onclick='deleteEle(this, `+ rndmId +`)'><i class="far fa-times-circle" style='float:right'></i></a>
+                            <input type='`+ value + `'' class="form-control" name="" id="" aria-describedby="helpId" placeholder="` + value + `">
                         </div>`
             }
             document.getElementById('formArea').innerHTML += element;
-
             rndmId++;
+        }
+
+        function savedData() {
+            console.log(saved)
+            console.log("saved")
+            for (let obj of saved) {
+                doc = document.getElementById(obj.id)
+                doc.setAttribute('value',obj.val);
+            }
+        }
+
+        function saveInputName(ele) {
+            id = ele.id
+            val = ele.value;
+
+            console.log(id)
+            console.log(val)
+            var obj = {
+                "id": id,
+                "val": val
+            }
+            saved.push(obj)
+            console.log(saved)
         }
     </script>
 
@@ -210,12 +237,13 @@
             }
         }
 
-        function deleteEle(element) {
-            console.log(element)
-            console.log(element.parentNode);
+        function deleteEle(element, id) {
+            console.log(id);
+            saved.splice(id,1)
             parent = element.parentNode.parentNode;
             console.log(parent);
             parent.removeChild(element.parentNode);
+
         }
 
         checkIfSync()
