@@ -41,7 +41,7 @@
         <div class='row'>
             <div class='col'>
                 <label for="exampleFormControlInput1" class="mt-2">Crew ID:</label>
-                <input type="number" class="form-control mt-2"  id='id'>
+                <input type="number" class="form-control mt-2" id='id'>
             </div>
         </div>
         <div class='row'>
@@ -52,7 +52,7 @@
         </div>
         <div class='row'>
             <div class='col'>
-                <label for="exampleFormControlInput1"  class="mt-2">Crew Type:</label>
+                <label for="exampleFormControlInput1" class="mt-2">Crew Type:</label>
                 <input type="text" class="form-control mt-2" id="type">
             </div>
         </div>
@@ -76,7 +76,7 @@
                     Save Changes
                 </a>
             </div>
-        </div> 
+        </div>
         <div id='crewMembersDiv'>
 
         </div>
@@ -115,6 +115,10 @@
 </body>
 
 <script>
+
+    if (sessionStorage.getItem('crewID') == null) {
+        window.location.replace('../index.html')
+    }
 
     var ppl = sessionStorage.getItem('crew');
     pplObj = JSON.parse(ppl);

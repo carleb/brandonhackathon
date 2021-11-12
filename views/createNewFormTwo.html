@@ -146,6 +146,11 @@
     </nav>
 
     <script>
+
+        if (sessionStorage.getItem('crewID') == null) {
+            window.location.replace('../index.html')
+        }
+
         var crewID = "";
         var crewType = "";
         var crewName = "";

@@ -93,6 +93,10 @@
 
 <script>
 
+    if (sessionStorage.getItem('crewID') == null) {
+        window.location.replace('../index.html')
+    }
+
     var data = [
         { name: "Brandon Chris", type: "Ship Master", id: 111, picture: "", years: 2, trips: 52 },
         { name: "Caleb Cheong", type: "Ship Engineer", id: 122, picture: "", years: 1.35, trips: 32 },
@@ -101,20 +105,20 @@
     ]
 
     function getVariables() {
-            crewID = sessionStorage.getItem("crewID");
-            crewType = sessionStorage.getItem("crewType");
-            crewName = sessionStorage.getItem("crewName");
-            shipId = sessionStorage.getItem("shipID");
+        crewID = sessionStorage.getItem("crewID");
+        crewType = sessionStorage.getItem("crewType");
+        crewName = sessionStorage.getItem("crewName");
+        shipId = sessionStorage.getItem("shipID");
 
-            console.log(crewID);
-            console.log(crewType);
-            console.log(crewName);
-            console.log(shipId);
+        console.log(crewID);
+        console.log(crewType);
+        console.log(crewName);
+        console.log(shipId);
 
 
-            document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
-            document.getElementById('shipId').innerHTML = shipId;
-        }
+        document.getElementById("name").innerHTML = crewName + " (ID: " + crewID + ")";
+        document.getElementById('shipId').innerHTML = shipId;
+    }
 
     for (i = 0; i < data.length; i++) {
         ppl = data[i]

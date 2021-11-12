@@ -81,7 +81,8 @@
                         <h4 class="card-title">Send Out Forms</h4>
                     </div>
                     <div class='card-footer'>
-                        <a name="" id="" class="btn btn-dark text-light" href="sendForm.html" role="button">Send Form</a>
+                        <a name="" id="" class="btn btn-dark text-light" href="sendForm.html" role="button">Send
+                            Form</a>
                     </div>
                 </div>
             </div>
@@ -94,8 +95,8 @@
                         <h4 class="card-title">Create Form</h4>
                     </div>
                     <div class='card-footer'>
-                        <a name="" id="" class="btn btn-dark text-light" href="createNewForm.html"
-                            role="button">Create New
+                        <a name="" id="" class="btn btn-dark text-light" href="createNewForm.html" role="button">Create
+                            New
                             Form</a>
                     </div>
                 </div>
@@ -170,6 +171,11 @@
     <script src="/js/data.js"></script>
 
     <script>
+
+        if (sessionStorage.getItem('crewID') == null) {
+            window.location.replace('../index.html')
+        }
+
         var crewID = "";
         var crewType = "";
         var crewName = "";
@@ -203,7 +209,7 @@
                 btn = document.getElementById('syncBtn').classList;
                 btn.add('bg-success')
                 btn.remove('bg-danger')
-                sessionStorage.setItem('sync','sync')
+                sessionStorage.setItem('sync', 'sync')
                 document.querySelector('#loader').style.display = "none";
             }, 3000)
         }

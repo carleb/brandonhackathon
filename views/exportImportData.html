@@ -117,7 +117,7 @@
         Hello
     </div>
 
-    
+
     <div class="my-2" style="color: white;">
         Hello
     </div>
@@ -138,6 +138,11 @@
 
 
     <script>
+
+        if (sessionStorage.getItem('crewID') == null) {
+            window.location.replace('../index.html')
+        }
+
         var crewID = "";
         var crewType = "";
         var crewName = "";
